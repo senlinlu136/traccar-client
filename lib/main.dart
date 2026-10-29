@@ -6,7 +6,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:app_links/app_links.dart';
-import 'package:rate_my_app/rate_my_app.dart';
 import 'package:traccar_client/password_service.dart';
 import 'package:traccar_client/push_service.dart';
 import 'package:traccar_client/quick_actions.dart';
@@ -46,18 +45,11 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  RateMyApp rateMyApp = RateMyApp(minDays: 0, minLaunches: 0);
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _initLinks();
-      await rateMyApp.init();
-      final dialogContext = navigatorKey.currentContext;
-      if (dialogContext != null && dialogContext.mounted && rateMyApp.shouldOpenDialog) {
-        await rateMyApp.showRateDialog(dialogContext);
-      }
     });
   }
 
